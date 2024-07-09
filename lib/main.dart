@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment_4/screens/splash_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,59 +12,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      title: 'Assignment # 4',
+      theme: _buildTheme(Brightness.light),
+      home: const SplashScreen(),
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+  //for all text color should be white and backgound color to be 0xFF6b79c0
+  ThemeData _buildTheme(brightness) {
+    var baseTheme = ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple).copyWith(
+        primary: Colors.deepPurple,
+        onPrimary: Colors.white,
+        surface: const Color.fromARGB(255, 44, 56, 117),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      brightness: brightness,
+      useMaterial3: true,
+    );
+
+    return baseTheme.copyWith(
+      scaffoldBackgroundColor: baseTheme.colorScheme.surface,
+      textTheme: GoogleFonts.interTextTheme(baseTheme.textTheme).apply(
+        bodyColor: baseTheme.colorScheme.onPrimary,
+        displayColor: baseTheme.colorScheme.onPrimary,
       ),
     );
   }
